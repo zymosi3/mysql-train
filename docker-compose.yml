@@ -1,0 +1,59 @@
+version: '2'
+
+services:
+  service:
+    build: ./service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql1
+      - mysql2
+      - mysql3
+    links:
+      - mysql1:mysql1host
+      - mysql2:mysql2host
+      - mysql3:mysql3host
+
+  mysql1:
+    image: mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: student
+      MYSQL_PASSWORD: studentpass
+      MYSQL_DATABASE: studentdb
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+
+  mysql2:
+    image: mysql
+    ports:
+      - "3307:3307"
+    expose:
+      - "3307"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: student
+      MYSQL_PASSWORD: studentpass
+      MYSQL_DATABASE: studentdb
+    volumes:
+      - ./3307:/etc/mysql/conf.d
+      - ./sql:/docker-entrypoint-initdb.d
+
+  mysql3:
+    image: mysql
+    ports:
+      - "3308:3308"
+    expose:
+      - "3308"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: student
+      MYSQL_PASSWORD: studentpass
+      MYSQL_DATABASE: studentdb
+    volumes:
+      - ./3308:/etc/mysql/conf.d
+      - ./sql:/docker-entrypoint-initdb.d

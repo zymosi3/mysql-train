@@ -46,7 +46,7 @@ public class StudentDaoImpl implements StudentDao {
         String sql = "INSERT INTO student (`id`, `name`, `email`, `age`, `gender`, `group`, `year`) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE " +
                 "`name` = VALUES(`name`), `email` = VALUES(`email`), `age` = VALUES(`age`), " +
-                "`gender` = VALUES(`gender`), `group` = VALUES(`group`), `year` = VALUES(`group`)";
+                "`gender` = VALUES(`gender`), `group` = VALUES(`group`), `year` = VALUES(`year`)";
         try(Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setLong(1, student.id);
